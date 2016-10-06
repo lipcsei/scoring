@@ -67,7 +67,6 @@ func getOffset(minute int) uint {
 }
 
 func (t TimeMap) SetFrom(minute int) TimeMap {
-
 	fieldIndex := getFieldIndex(minute)
 	for i := len(t) - 1; i > fieldIndex; i-- {
 		t[i] = -1
@@ -77,7 +76,6 @@ func (t TimeMap) SetFrom(minute int) TimeMap {
 }
 
 func (t TimeMap) UnsetFrom(minute int) TimeMap {
-
 	fieldIndex := getFieldIndex(minute)
 	for i := len(t) - 1; i > fieldIndex; i-- {
 		t[i] = 0
