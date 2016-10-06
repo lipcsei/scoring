@@ -61,11 +61,6 @@ func TestGetMethod(t *testing.T) {
 
 }
 
-func TestGetOffset(t *testing.T) {
-	assert := assert.New(t)
-	assert.Equal(0x2000, getOffset(82))
-}
-
 func TestGetBitmaskFunction(t *testing.T) {
 	assert := assert.New(t)
 	expected := uint32(0x1FFFF)

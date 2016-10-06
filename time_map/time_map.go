@@ -55,15 +55,13 @@ func (t TimeMap) Get(minute uint32) bool {
 }
 
 func queryBit(value uint32, minute uint32) bool {
-	return (value & getOffset(minute)) != 0
+	mask := 1 << ((minute - 1) % 32)
+	return (value & uint32(mask)) != 0
 }
 
 func getBitmask(minute uint32) uint32 {
-	return getOffset(minute-1) - 1
-}
-
-func getOffset(minute uint32) uint32 {
-	return 1 << (minute - 1) % 32
+	offset := (minute - 1) % 32
+	return (1 << offset) - 1
 }
 
 func (t TimeMap) SetFrom(minute uint32) {
