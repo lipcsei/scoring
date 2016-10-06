@@ -30,4 +30,6 @@ type Value struct {
 }
 
 type Player struct {
+	ID   string
+	Name string
 }
