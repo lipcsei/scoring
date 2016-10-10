@@ -8,8 +8,8 @@ import (
 
 func TestNewMethod(t *testing.T) {
 	assert := assert.New(t)
-	assert.Equal(TimeMap{-1, -1, -1, -1}, New(true))
-	assert.Equal(TimeMap{0, 0, 0, 0}, New(false))
+	assert.Equal(TimeMap{Raw: [4]int{-1, -1, -1, -1}}, New(true))
+	assert.Equal(TimeMap{Raw: [4]int{0, 0, 0, 0}}, New(false))
 }
 
 func TestBitwiseNotFunction(t *testing.T) {
@@ -19,24 +19,24 @@ func TestBitwiseNotFunction(t *testing.T) {
 
 func TestNotMethod(t *testing.T) {
 	assert := assert.New(t)
-	expected := TimeMap{0xFFFFFFFD, 0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFD}
-	actual := TimeMap{0x2, 0x1, 0x0, 0x2}.Not()
+	expected := TimeMap{Raw: [4]int{0xFFFFFFFD, 0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFD}}
+	actual := TimeMap{Raw: [4]int{0x2, 0x1, 0x0, 0x2}}.Not()
 	assert.Equal(expected, actual)
 }
 
 func TestAndMethod(t *testing.T) {
 	assert := assert.New(t)
-	a := TimeMap{0x2, 0x1}
-	b := TimeMap{0x2, 0x5, 0x3, 0x5}
-	expected := TimeMap{0x2, 0x1}
+	a := TimeMap{Raw: [4]int{0x2, 0x1}}
+	b := TimeMap{Raw: [4]int{0x2, 0x5, 0x3, 0x5}}
+	expected := TimeMap{Raw: [4]int{0x2, 0x1}}
 	assert.Equal(expected, a.And(b))
 }
 
 func TestOrMethod(t *testing.T) {
 	assert := assert.New(t)
-	a := TimeMap{0x2, 0x1}
-	b := TimeMap{0x2, 0x5, 0x3, 0x5}
-	expected := TimeMap{0x2, 0x5, 0x3, 0x5}
+	a := TimeMap{Raw: [4]int{0x2, 0x1}}
+	b := TimeMap{Raw: [4]int{0x2, 0x5, 0x3, 0x5}}
+	expected := TimeMap{Raw: [4]int{0x2, 0x5, 0x3, 0x5}}
 
 	assert.Equal(expected, a.Or(b))
 }
@@ -83,6 +83,7 @@ func TestNotStarterReturnsFalseForEveryMinute(t *testing.T) {
 		assert.False(timemap.Get(i))
 	}
 }
+
 func TestGetReturnsFalseForInvalidValues(t *testing.T) {
 	assert := assert.New(t)
 	timemap := New(true)
@@ -92,7 +93,7 @@ func TestGetReturnsFalseForInvalidValues(t *testing.T) {
 
 func TestGetReturnsCorrectValues(t *testing.T) {
 	assert := assert.New(t)
-	timemap := TimeMap{15, 0, 15, 0}
+	timemap := TimeMap{Raw: [4]int{15, 0, 15, 0}}
 
 	for i := 1; i <= 4; i++ {
 		assert.True(timemap.Get(i))
@@ -110,7 +111,7 @@ func TestGetReturnsCorrectValues(t *testing.T) {
 
 func TestSetThenGetLower(t *testing.T) {
 	assert := assert.New(t)
-	timemap := TimeMap{0, 0, 0, 0}
+	timemap := TimeMap{Raw: [4]int{0, 0, 0, 0}}
 	timemap = timemap.SetFrom(10)
 	for i := 1; i <= 9; i++ {
 		assert.False(timemap.Get(i))
@@ -123,7 +124,7 @@ func TestSetThenGetLower(t *testing.T) {
 
 func TestUnsetThenGetLower(t *testing.T) {
 	assert := assert.New(t)
-	timemap := TimeMap{-1, -1, -1, -1}
+	timemap := TimeMap{Raw: [4]int{-1, -1, -1, -1}}
 	timemap = timemap.UnsetFrom(10)
 	for i := 1; i <= 9; i++ {
 		assert.True(timemap.Get(i))
@@ -136,7 +137,7 @@ func TestUnsetThenGetLower(t *testing.T) {
 
 func TestUnsetThenGetUpper(t *testing.T) {
 	assert := assert.New(t)
-	timemap := TimeMap{-1, -1, -1, -1}
+	timemap := TimeMap{Raw: [4]int{-1, -1, -1, -1}}
 	timemap = timemap.UnsetFrom(75)
 	for i := 1; i <= 74; i++ {
 		assert.True(timemap.Get(i))
@@ -154,7 +155,7 @@ func TestBitCountZero(t *testing.T) {
 
 func TestBitCountNormal(t *testing.T) {
 	assert := assert.New(t)
-	assert.Equal(16, TimeMap{15, 15, 15, 15}.Count())
+	assert.Equal(16, TimeMap{Raw: [4]int{15, 15, 15, 15}}.Count())
 }
 
 func TestBitCountOverflowStarter(t *testing.T) {
@@ -165,7 +166,7 @@ func TestBitCountOverflowStarter(t *testing.T) {
 
 func TestBitCountOverflowAfterSet(t *testing.T) {
 	assert := assert.New(t)
-	timemap := TimeMap{0, 0, 0, 0}
+	timemap := TimeMap{Raw: [4]int{0, 0, 0, 0}}
 	timemap = timemap.SetFrom(71)
 	assert.Equal(50, timemap.Count())
 }
