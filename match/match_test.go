@@ -7,14 +7,14 @@ import (
 
 func TestMain(m *testing.M) {
 
-	match := Match{
-		Player: []Player{
-			{ID: "TP1", Status: "SUB_IN"},
-			{ID: "TP1", Status: "SUB_IN"},
-			{ID: "TP1", Status: "SUB_IN"},
-		},
-	}
+	// match := Match{
+	// 	Player: []Player{
+	// 		{ID: "TP1", Status: "SUB_IN"},
+	// 		{ID: "TP1", Status: "SUB_IN"},
+	// 		{ID: "TP1", Status: "SUB_IN"},
+	// 	},
+	// }
 
-	fmt.Println(match)
+	fmt.Println(Get("OM2241790"))
 
 }
