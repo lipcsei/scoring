@@ -1,5 +1,7 @@
 package match
 
+import "github.com/lipcsei/scoring/timemap"
+
 type Match struct {
 	ID string
 
@@ -30,6 +32,18 @@ type Value struct {
 }
 
 type Player struct {
-	ID   string
-	Name string
+	ID     string
+	Name   string
+	Status string
+}
+
+type ScoreSheet struct {
+	Activity        timemap.TimeMap
+	Personal        map[string]int
+	Team            map[string]int
+	TeamInLeadBonus timemap.TimeMap
+	DrawBonus       timemap.TimeMap
+	CleanSheet      timemap.TimeMap
+	TotalScore      int
+	Minutes         int
 }
